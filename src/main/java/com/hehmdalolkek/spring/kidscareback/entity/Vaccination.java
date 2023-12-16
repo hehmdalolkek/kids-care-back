@@ -2,6 +2,9 @@ package com.hehmdalolkek.spring.kidscareback.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -20,9 +23,12 @@ public class Vaccination {
     @JsonBackReference("child-vaccination")
     private Child child;
 
+    @NotBlank
+    @Size(min = 2, max = 45)
     @Column(name = "title")
     private String title;
 
+    @PastOrPresent
     @Column(name = "date")
     private LocalDate date;
 

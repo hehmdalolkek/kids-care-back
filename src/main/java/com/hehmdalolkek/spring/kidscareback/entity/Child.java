@@ -2,6 +2,10 @@ package com.hehmdalolkek.spring.kidscareback.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,21 +24,30 @@ public class Child {
     @JoinColumn(name = "group_id", referencedColumnName = "id")
     private Group group;
 
+    @NotBlank
+    @Size(min = 2, max = 45)
     @Column(name = "surname")
     private String surname;
 
+    @NotBlank
+    @Size(min = 2, max = 45)
     @Column(name = "name")
     private String name;
 
+    @NotBlank
+    @Size(min = 2, max = 45)
     @Column(name = "patronymic")
     private String patronymic;
 
+    @Past
     @Column(name = "dob")
     private LocalDate dateOfBirthday;
 
+    @Pattern(regexp = "^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$")
     @Column(name = "main_phone")
     private String mainPhone;
 
+    @Pattern(regexp = "^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$")
     @Column(name = "additional_phone")
     private String additionalPhone;
 

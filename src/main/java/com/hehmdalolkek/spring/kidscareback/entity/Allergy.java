@@ -2,6 +2,8 @@ package com.hehmdalolkek.spring.kidscareback.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 
@@ -19,6 +21,8 @@ public class Allergy {
     @JsonBackReference("child-allergy")
     private Child child;
 
+    @NotBlank
+    @Size(min = 2, max = 45)
     @Column(name = "title")
     private String title;
 
