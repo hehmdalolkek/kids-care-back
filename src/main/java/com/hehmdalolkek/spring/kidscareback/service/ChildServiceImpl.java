@@ -51,8 +51,9 @@ public class ChildServiceImpl implements ChildService {
     @Override
     @Transactional
     public void addChild(Child child) {
-        groupRepository.findById(child.getGroup().getId())
+        Group group = groupRepository.findById(child.getGroup().getId())
                 .orElseThrow(() -> new GroupNotFoundException(child.getGroup().getId()));
+        child.setGroup(group);
 
         Child savedChild = childRepository.save(child);
 
