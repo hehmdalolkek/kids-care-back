@@ -43,11 +43,11 @@ public class Child {
     @Column(name = "dob")
     private LocalDate dateOfBirthday;
 
-    @Pattern(regexp = "^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$")
+    @Pattern(regexp = "^(|((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10})$")
     @Column(name = "main_phone")
     private String mainPhone;
 
-    @Pattern(regexp = "^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$")
+    @Pattern(regexp = "^(|((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10})$")
     @Column(name = "additional_phone")
     private String additionalPhone;
 

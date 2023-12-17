@@ -57,14 +57,18 @@ public class ChildServiceImpl implements ChildService {
 
         Child savedChild = childRepository.save(child);
 
-        for (Allergy allergy : savedChild.getAllergies()) {
-            allergy.setChild(savedChild);
-            allergyRepository.save(allergy);
+        if (child.getAllergies() != null) {
+            for (Allergy allergy : savedChild.getAllergies()) {
+                allergy.setChild(savedChild);
+                allergyRepository.save(allergy);
+            }
         }
 
-        for (Vaccination vaccination : savedChild.getVaccinations()) {
-            vaccination.setChild(savedChild);
-            vaccinationRepository.save(vaccination);
+        if (child.getVaccinations() != null) {
+            for (Vaccination vaccination : savedChild.getVaccinations()) {
+                vaccination.setChild(savedChild);
+                vaccinationRepository.save(vaccination);
+            }
         }
     }
 
@@ -99,21 +103,25 @@ public class ChildServiceImpl implements ChildService {
         }
         if (!Objects.equals(newChild.getAllergies(), child.getAllergies())) {
             allergyRepository.deleteAllByChildId(id);
-            List<Allergy> allergies = new ArrayList<>();
-            for (Allergy allergy : newChild.getAllergies()) {
-                allergy.setChild(child);
-                allergies.add(allergyRepository.save(allergy));
+            if (newChild.getAllergies() != null) {
+                List<Allergy> allergies = new ArrayList<>();
+                for (Allergy allergy : newChild.getAllergies()) {
+                    allergy.setChild(child);
+                    allergies.add(allergyRepository.save(allergy));
+                }
+                child.setAllergies(allergies);
             }
-            child.setAllergies(allergies);
         }
         if (!Objects.equals(newChild.getVaccinations(), child.getVaccinations())) {
             vaccinationRepository.deleteAllByChildId(id);
-            List<Vaccination> vaccinations = new ArrayList<>();
-            for (Vaccination vaccination : newChild.getVaccinations()) {
-                vaccination.setChild(child);
-                vaccinations.add(vaccinationRepository.save(vaccination));
+            if (child.getVaccinations() != null) {
+                List<Vaccination> vaccinations = new ArrayList<>();
+                for (Vaccination vaccination : newChild.getVaccinations()) {
+                    vaccination.setChild(child);
+                    vaccinations.add(vaccinationRepository.save(vaccination));
+                }
+                child.setVaccinations(vaccinations);
             }
-            child.setVaccinations(vaccinations);
         }
 
         childRepository.save(child);
